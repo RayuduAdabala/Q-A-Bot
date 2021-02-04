@@ -112,6 +112,8 @@ class DocumentReader:
     def convert_ids_to_string(self, input_ids):
         return self.tokenizer.convert_tokens_to_string(self.tokenizer.convert_ids_to_tokens(input_ids))
 
+
+
 @app.route('/Qfun',methods=['POST'])
 def Qfun():
     # input_q=str(request.form.values())
@@ -136,6 +138,8 @@ def Qfun():
         reader.tokenize(question, text)
         # print(f"Answer: {reader.get_answer()}")
         # print()
+        import time
+        time.sleep(10)
 
         return render_template('index.html', prediction_text='Answer $ {}'.format(reader.get_answer()))
 
