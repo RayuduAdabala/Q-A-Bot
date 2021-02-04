@@ -1,0 +1,10 @@
+wikipedia==1.4.0
+transformers==4.2.2
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==1.7.0+cpu
+fastapi==0.52.0
+fastcache==1.0.2
+filelock==3.0.10
+Flask==1.0.2
+Flask-WTF==0.14.3
+uvicorn==0.11.3
