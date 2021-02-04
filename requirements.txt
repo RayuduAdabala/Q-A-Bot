@@ -8,3 +8,4 @@ filelock==3.0.10
 Flask==1.0.2
 Flask-WTF==0.14.3
 uvicorn==0.11.3
+gunicorn==20.0.4
