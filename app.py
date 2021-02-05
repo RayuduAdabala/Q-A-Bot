@@ -11,6 +11,7 @@ import pprint as pp
 
 app = Flask(__name__) #Initialize the flask App
 # model = pickle.load(open('model.pkl', 'rb'))
+q = Queue(connection=conn)
 
 @app.route('/')
 def home():
@@ -116,7 +117,7 @@ class DocumentReader:
 
 
 
-# @app.route('/Qfun',methods=['POST'])
+@app.route('/Qfun',methods=['POST'])
 def Qfun():
     # input_q=str(request.form.values())
 
@@ -149,12 +150,12 @@ def Qfun():
 @app.route('/init',methods=['POST'])
 def init_entry():
   # Create redis queue
-  q = Queue(connection=conn)
+  # q = Queue(connection=conn)
 
   # Queue reset nlp
   q.enqueue(Qfun,'http://heroku.com')
   # q.enqueue(Qfun, result_ttl=0, job_timeout=3600)
-  
+
   return 'Chatbot initialized !'
 
 if __name__ == "__main__":
