@@ -152,8 +152,9 @@ def init_entry():
   q = Queue(connection=conn)
 
   # Queue reset nlp
-  q.enqueue(Qfun, result_ttl=0, job_timeout=3600)
-
+  q.enqueue(Qfun,'http://heroku.com')
+  # q.enqueue(Qfun, result_ttl=0, job_timeout=3600)
+  
   return 'Chatbot initialized !'
 
 if __name__ == "__main__":
