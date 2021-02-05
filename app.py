@@ -146,7 +146,7 @@ def Qfun():
         return render_template('index.html', prediction_text='Answer $ {}'.format(reader.get_answer()))
 
 # @app.route('/init', methods=['GET'])
-@app.route('/Qfun',methods=['POST'])
+@app.route('/init',methods=['POST'])
 def init_entry():
   # Create redis queue
   q = Queue(connection=conn)
