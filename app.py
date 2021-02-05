@@ -5,6 +5,8 @@ from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
 from collections import OrderedDict
 import wikipedia as wiki
+from rq import Queue
+from worker import conn
 import pprint as pp
 
 app = Flask(__name__) #Initialize the flask App
@@ -114,19 +116,19 @@ class DocumentReader:
 
 
 
-@app.route('/Qfun',methods=['POST'])
+# @app.route('/Qfun',methods=['POST'])
 def Qfun():
     # input_q=str(request.form.values())
 
-    q = []
+    qu = []
     questions = str(request.form.values())
-    q.append(questions)
+    qu.append(questions)
     reader = DocumentReader("deepset/bert-base-cased-squad2")
 
 # if you trained your own model using the training cell earlier, you can access it with this:
 #reader = DocumentReader("./models/bert/bbu_squad2")
 
-    for question in q:
+    for question in qu:
         print(f"Question: {question}")
         results = wiki.search(question)
 
@@ -138,10 +140,21 @@ def Qfun():
         reader.tokenize(question, text)
         # print(f"Answer: {reader.get_answer()}")
         # print()
-        import time
-        time.sleep(10)
+        # import time
+        # time.sleep(10)
 
         return render_template('index.html', prediction_text='Answer $ {}'.format(reader.get_answer()))
+
+# @app.route('/init', methods=['GET'])
+@app.route('/Qfun',methods=['POST'])
+def init_entry():
+  # Create redis queue
+  q = Queue(connection=conn)
+
+  # Queue reset nlp
+  q.enqueue(Qfun, result_ttl=0, job_timeout=3600)
+
+  return 'Chatbot initialized !'
 
 if __name__ == "__main__":
     app.run(debug=True)
