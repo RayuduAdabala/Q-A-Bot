@@ -150,11 +150,11 @@ def Qfun():
 @app.route('/init',methods=['POST'])
 def init_entry():
   # Create redis queue
-  # q = Queue(connection=conn)
+  q = Queue(connection=conn)
 
   # Queue reset nlp
-  q.enqueue(Qfun,'http://heroku.com')
-  # q.enqueue(Qfun, result_ttl=0, job_timeout=3600)
+  # q.enqueue(Qfun,'http://heroku.com')
+  q.enqueue(Qfun, result_ttl=0, job_timeout=3600)
 
   return 'Chatbot initialized !'
 
