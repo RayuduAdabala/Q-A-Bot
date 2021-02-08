@@ -1,2 +1,2 @@
-web: gunicorn --bind 0.0.0.0:6379 app:app
+web: gunicorn app:app
 worker: rq worker -u $REDIS_URL app-tasks
