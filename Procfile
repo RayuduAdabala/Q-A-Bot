@@ -1,2 +1,2 @@
 web: gunicorn app:app
-worker: rq worker -u $REDIS_URL app-tasks
+worker: python -u worker.py
